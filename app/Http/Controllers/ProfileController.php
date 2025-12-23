@@ -78,26 +78,22 @@ class ProfileController extends Controller
     }
 // Fungsi KHUSUS untuk update Avatar
 // GANTI ProfileUpdateRequest jadi Request biasa
-public function updateAvatar(Request $request) 
-{
-    // 1. Validasi manual di sini (Hanya untuk foto)
-    $request->validate([
-        'avatar' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-    ]);
+    protected function updateAvatar(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'avatar' => ['required', 'image', 'max:2048'], // Maks 2MB
+        ]);
 
-    if ($request->hasFile('avatar')) {
         $user = $request->user();
 
-        // 2. Panggil helper yang sudah kita ubah tadi
-        $path = $this->uploadAvatar($request, $user);
-        
-        $user->update(['avatar' => $path]);
+        // Upload file baru dan dapatkan path-nya
+        $avatarPath = $this->uploadAvatar($request, $user);
 
-        return back()->with('success', 'Foto profil berhasil diperbarui!');
+        // Update kolom avatar di database
+        $user->update(['avatar' => $avatarPath]);
+
+        return back()->with('success', 'Foto profil berhasil diperbarui.');
     }
-
-    return back()->with('error', 'Gagal mengunggah foto.');
-}
     /**
      * Menghapus avatar (tombol "Hapus Foto").
      */
