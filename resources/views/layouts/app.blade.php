@@ -28,6 +28,9 @@
 
     {{-- Stack untuk CSS tambahan per halaman --}}
     @stack('styles')
+
+    {{-- Stack untuk script tambahan dari child view --}}
+    @stack('scripts')
 </head>
 <body>
     {{-- ============================================

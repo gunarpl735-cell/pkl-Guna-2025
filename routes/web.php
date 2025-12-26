@@ -11,7 +11,8 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\MidtransNotificationController;
 use App\Http\Controllers\Auth\GoogleController;
 
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
@@ -146,3 +147,28 @@ Route::middleware('auth')->group(function() {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::post('/wishlist/toggle/{product}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
 });
+// routes/web.php
+
+
+Route::middleware('auth')->group(function () {
+    // ... routes lainnya
+
+    // Payment Routes
+    Route::get('/orders/{order}/pay', [PaymentController::class, 'show'])
+        ->name('orders.pay');
+    Route::get('/orders/{order}/success', [PaymentController::class, 'success'])
+        ->name('orders.success');
+    Route::get('/orders/{order}/pending', [PaymentController::class, 'pending'])
+        ->name('orders.pending');
+});
+// routes/web.php
+
+
+
+// ============================================================
+// MIDTRANS WEBHOOK
+// Route ini HARUS public (tanpa auth middleware)
+// Karena diakses oleh SERVER Midtrans, bukan browser user
+// ============================================================
+Route::post('midtrans/notification', [MidtransNotificationController::class, 'handle'])
+    ->name('midtrans.notification');
