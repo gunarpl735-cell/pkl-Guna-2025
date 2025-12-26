@@ -9,9 +9,10 @@ class OrderItem extends Model
     protected $fillable = [
         'order_id',
         'product_id',
+        'product_name',
         'quantity',
         'price',
-        'shipping_name'
+        'subtotal',
     ];
 
     /** @use HasFactory<\Database\Factories\OrderItemFactory> */
