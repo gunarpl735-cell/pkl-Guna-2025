@@ -13,15 +13,21 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MidtransNotificationController;
+
 use App\Http\Controllers\Auth\GoogleController;
 
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ReportController;
 
 use App\Http\Middleware\AdminMiddleware;
+
+use App\Services\MidtransService;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,11 +43,8 @@ Auth::routes();
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/products', [CatalogController::class, 'index'])
-    ->name('catalog.index');
-
-Route::get('/products/{slug}', [CatalogController::class, 'show'])
-    ->name('catalog.show');
+Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/product/{slug}', [CatalogController::class, 'show'])->name('catalog.show');
 
 /*
 |--------------------------------------------------------------------------
@@ -100,7 +103,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard
-    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Produk CRUD
     Route::resource('products', AdminProductController::class);
@@ -108,10 +111,14 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->name('admi
     // Kategori CRUD
     Route::resource('categories', AdminCategoryController::class);
 
-    // Manajemen Pesanan
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
+    //Manajeman Laporan
+    Route::get('/users', [AdminController::class, 'index'])->name('users.index');
+    Route::delete('/users/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
+
 });
 
 Route::middleware(['auth', AdminMiddleware::class])
@@ -119,17 +126,18 @@ Route::middleware(['auth', AdminMiddleware::class])
     ->name('admin.')
     ->group(function () {
 
+        Route::get('/reports/sales', [ReportController::class, 'sales'])
+        ->name('reports.sales');
+
+        Route::get('/reports/export-sales', [ReportController::class, 'exportSales'])->name('reports.export-sales');
+
+        
         Route::get('/dashboard', [AdminController::class, 'dashboard'])
             ->name('dashboard');
 
-        Route::get('/reports/sales', [ReportController::class, 'sales'])
-            ->name('reports.sales');
+        
     });
-// routes/web.php
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function() {
-    Route::get('users', [\App\Http\Controllers\Admin\UserController::class, 'index'])
-         ->name('admin.users.index');
-});
+
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Kategori
@@ -141,19 +149,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Route tambahan untuk AJAX Image Handling (jika diperlukan)
     // ...
 });
-Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
-Route::get('/product/{slug}', [CatalogController::class, 'show'])->name('catalog.show');
-Route::middleware('auth')->group(function() {
-    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
-    Route::post('/wishlist/toggle/{product}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
-});
-// routes/web.php
-
 
 Route::middleware('auth')->group(function () {
     // ... routes lainnya
 
     // Payment Routes
+    Route::get('/orders/{order}/snap-token', [PaymentController::class, 'getSnapToken'])
+        ->name('orders.snap-token');
     Route::get('/orders/{order}/pay', [PaymentController::class, 'show'])
         ->name('orders.pay');
     Route::get('/orders/{order}/success', [PaymentController::class, 'success'])
@@ -161,9 +163,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/{order}/pending', [PaymentController::class, 'pending'])
         ->name('orders.pending');
 });
-// routes/web.php
-
-
 
 // ============================================================
 // MIDTRANS WEBHOOK
@@ -172,3 +171,5 @@ Route::middleware('auth')->group(function () {
 // ============================================================
 Route::post('midtrans/notification', [MidtransNotificationController::class, 'handle'])
     ->name('midtrans.notification');
+    // Batasi 5 request per menit
+Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:5,1');

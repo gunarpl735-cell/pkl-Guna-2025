@@ -13,11 +13,11 @@ class Order extends Model
         'order_number',
         'status',
         'total_amount',
+        'shipping_name',
+        'shipping_phone',
+        'shipping_address',
         'payment_status',
         'snap_token',
-        'name',
-        'phone',
-        'address',
     ];
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
@@ -31,5 +31,9 @@ class Order extends Model
     public function items()
     {
         return $this->hasMany(OrderItem::class);
+    }
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
     }
 }

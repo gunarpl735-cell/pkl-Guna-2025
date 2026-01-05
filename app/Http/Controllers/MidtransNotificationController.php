@@ -138,7 +138,15 @@ class MidtransNotificationController extends Controller
             case 'cancel':
                 // Dibatalkan user/admin
                 $this->handleFailed($order, $payment, 'Pembayaran dibatalkan');
+                if ($order->status !== 'cancelled') {
+        // Restock Logic
+        foreach ($order->items as $item) {
+            $item->product->increment('stock', $item->quantity);
+        }
+        $order->update(['payment_status' => 'failed', 'status' => 'cancelled']);
+    }
                 break;
+                
 
             case 'refund':
             case 'partial_refund':
@@ -236,4 +244,14 @@ class MidtransNotificationController extends Controller
 
         // TODO: Logic tambahan untuk refund
     }
+    // app/Http/Controllers/MidtransNotificationController.php
+use App\Events\OrderPaidEvent;
+
+private function setSuccess(Order $order)
+{
+    $order->update([]);
+
+    // Fire & Forget
+    event(new OrderPaidEvent($order));
+}
 }
