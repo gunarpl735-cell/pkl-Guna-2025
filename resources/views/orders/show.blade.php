@@ -11,7 +11,7 @@
             
             {{-- Tombol Kembali --}}
             <div class="mb-4">
-                <a href="{{ route('orders.index') }}" class="btn btn-outline-secondary btn-sm">
+                <a href="{{ route('checkout.index') }}" class="btn btn-outline-secondary btn-sm">
                     <i class="bi bi-arrow-left"></i> Kembali ke Pesanan Saya
                 </a>
             </div>
