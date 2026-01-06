@@ -3,12 +3,12 @@
      FUNGSI: Navigation bar untuk customer
      ================================================ --}}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-warning shadow-sm sticky-top">
     <div class="container">
         {{-- Logo & Brand --}}
-        <a class="navbar-brand text-primary" href="{{ route('home') }}">
+        <a class="navbar-brand text-black" href="{{ route('home') }}">
             <i class="bi bi-bag-heart-fill me-2"></i>
-            TokoOnline
+            Toko Sepatu Keren
         </a>
 
         {{-- Mobile Toggle --}}
@@ -26,7 +26,7 @@
                 <div class="input-group">
                     <input type="text" name="q"
                            class="form-control"
-                           placeholder="Cari produk..."
+                           placeholder="Cari Sepatu..."
                            value="{{ request('q') }}">
                     <button class="btn btn-outline-primary" type="submit">
                         <i class="bi bi-search"></i>
@@ -118,7 +118,7 @@
                         <a class="nav-link" href="{{ route('login') }}">Masuk</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary btn-sm ms-2" href="{{ route('register') }}">
+                        <a class="btn btn-warning btn-sm ms-2" href="{{ route('register') }}">
                             Daftar
                         </a>
                     </li>

@@ -83,38 +83,7 @@
                                     </td>
                                 </tr>
 
-                                {{-- EDIT MODAL per Loop Item --}}
-                                <div class="modal fade" id="editModal{{ $category->id }}" tabindex="-1">
-                                    <div class="modal-dialog">
-                                        <form class="modal-content" action="{{ route('admin.categories.update', $category) }}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Edit Kategori</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Nama</label>
-                                                    <input type="text" name="name" class="form-control" value="{{ $category->name }}" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Gambar (Opsional)</label>
-                                                    <input type="file" name="image" class="form-control">
-                                                </div>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" name="is_active" value="1"
-                                                           {{ $category->is_active ? 'checked' : '' }}>
-                                                    <label class="form-check-label">Aktif</label>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                                
                             @empty
                                 <tr>
                                     <td colspan="4" class="text-center py-4 text-muted">Belum ada kategori.</td>
@@ -161,4 +130,38 @@
         </form>
     </div>
 </div>
+{{-- EDIT MODAL per Loop Item --}}
+@foreach($categories as $category)
+                                <div class="modal fade" id="editModal{{ $category->id }}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <form class="modal-content" action="{{ route('admin.categories.update', $category) }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Edit Kategori</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Nama</label>
+                                                    <input type="text" name="name" class="form-control" value="{{ $category->name }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Gambar (Opsional)</label>
+                                                    <input type="file" name="image" class="form-control">
+                                                </div>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" name="is_active" value="1"
+                                                           {{ $category->is_active ? 'checked' : '' }}>
+                                                    <label class="form-check-label">Aktif</label>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+@endforeach
 @endsection

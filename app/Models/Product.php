@@ -22,7 +22,7 @@ class Product extends Model
         'price',
         'discount_price',
         'stock',
-        'weight',
+        'weight',  
         'is_active',
         'is_featured',
     ];
