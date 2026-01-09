@@ -17,7 +17,7 @@
                         Belanja Online Mudah & Terpercaya
                     </h1>
                     <p class="lead mb-4">
-                        Temukan berbagai produk berkualitas dengan harga terbaik.
+                        Temukan berbagai sepatu berkualitas dengan harga terbaik.
                         Gratis ongkir untuk pembelian pertama!
                     </p>
                     <a href="{{ route('catalog.index') }}" class="btn btn-light btn-lg">
@@ -25,7 +25,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6 d-none d-lg-block text-center">
-                    <img src="{{ asset('images/Gemini_Generated_Image_ool7y8ool7y8ool7-removebg-preview.png') }}"
+                    <img src="{{ asset('images/Gemini_Generated_Image_4vufey4vufey4vuf__1_-removebg-preview (1).png') }}"
                          alt="Shopping" class="img-fluid" style="max-height: 600px;">
                 </div>
             </div>
@@ -122,3 +122,100 @@
         </div>
     </section>
 @endsection
+<style>
+    /* 1. Hero Section Utama (.guna) - Toko Sepatu Premium */
+    .guna {
+        /* Menggunakan foto rak sepatu yang padat dengan overlay gradient gelap */
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                    url('https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1500&q=80');
+        background-size: cover;
+        background-position: center 20%; /* Fokus pada bagian atas rak sepatu */
+        background-attachment: fixed; /* Efek Parallax mewah saat scroll */
+        
+        position: relative;
+        overflow: hidden;
+        padding: 60px 0 !important; 
+        border-bottom: 4px solid #d4af37; /* Aksen Gold tebal di bawah */
+    }
+
+    /* Efek kilauan cahaya emas di sudut kiri */
+    .guna::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.15) 0%, transparent 50%);
+        z-index: 0;
+    }
+
+    .guna .container {
+        position: relative;
+        z-index: 1;
+        max-width: 1100px;
+    }
+
+    /* Judul dengan Shadow agar kontras dengan background rak */
+    .guna h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2rem; 
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #fff;
+        letter-spacing: 2px;
+        margin-bottom: 15px !important;
+        text-shadow: 3px 3px 8px rgba(0,0,0,0.8);
+    }
+
+    /* Deskripsi dengan Border Gold */
+    .guna .lead {
+        font-size: 1.05rem;
+        color: #f8f8f8;
+        margin-bottom: 30px !important;
+        border-left: 4px solid #d4af37;
+        padding-left: 20px;
+        max-width: 500px;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    }
+
+    /* Tombol Butik Mewah */
+    .guna .btn-light {
+        background: #d4af37;
+        border: 2px solid #d4af37;
+        color: #000; /* Teks hitam agar lebih 'pop' di atas warna gold */
+        font-size: 0.9rem;
+        font-weight: 800;
+        padding: 12px 35px;
+        border-radius: 0; 
+        transition: all 0.4s ease;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .guna .btn-light:hover {
+        background: transparent;
+        color: #d4af37;
+        border: 2px solid #d4af37;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Gambar Produk Utama yang melayang di depan rak */
+    .guna img {
+        max-height: 380px !important; /* Ukuran diperbesar agar lebih menonjol */
+        width: auto;
+        filter: drop-shadow(0 30px 50px rgba(0,0,0,0.9));
+        animation: floatLuxury 6s ease-in-out infinite;
+    }
+
+    @keyframes floatLuxury {
+        0% { transform: scale(1) translateY(0px) rotate(0deg); }
+        50% { transform: scale(1.05) translateY(-20px) rotate(-2deg); }
+        100% { transform: scale(1) translateY(0px) rotate(0deg); }
+    }
+
+    /* Penyesuaian Mobile */
+    @media (max-width: 991px) {
+        .guna { padding: 50px 0 !important; background-attachment: scroll; } /* Matikan parallax di HP agar ringan */
+        .guna h1 { font-size: 1.8rem; }
+        .guna img { max-height: 250px !important; margin-top: 40px; }
+    }
+</style>

@@ -1,5 +1,3 @@
-{{-- resources/views/emails/orders/paid.blade.php --}}
-
 <x-mail::message>
 # Halo, {{ $order->user->name }}
 

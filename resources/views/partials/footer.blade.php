@@ -9,10 +9,10 @@
             {{-- Brand & Description --}}
             <div class="col-lg-4 col-md-6">
                 <h5 class="text-white mb-3">
-                    <i class="bi bi-bag-heart-fill me-2"></i>TokoOnline
+                    <i class="bi bi-bag-heart-fill me-2"></i>Toko Sepatu
                 </h5>
                 <p class="text-secondary">
-                    Toko online terpercaya dengan berbagai produk berkualitas.
+                    Toko online sepatu terpercaya dengan berbagai produk berkualitas.
                     Belanja mudah, aman, dan nyaman.
                 </p>
                 <div class="d-flex gap-3 mt-3">
@@ -63,15 +63,15 @@
                 <ul class="list-unstyled text-secondary">
                     <li class="mb-2">
                         <i class="bi bi-geo-alt me-2"></i>
-                        Jl. Contoh No. 123, Bandung
+                        Jl. Cibaduyut No. 12, Bandung
                     </li>
                     <li class="mb-2">
                         <i class="bi bi-telephone me-2"></i>
-                        (022) 123-4567
+                        (+62) 85642194669
                     </li>
                     <li class="mb-2">
                         <i class="bi bi-envelope me-2"></i>
-                        info@tokoonline.com
+                        info@tokosepatuonline.com
                     </li>
                 </ul>
             </div>

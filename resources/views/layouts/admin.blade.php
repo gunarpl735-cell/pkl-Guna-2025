@@ -18,10 +18,10 @@
     <style>
         .sidebar {
             min-height: 100vh;
-            background: linear-gradient(180deg, #1e3a5f 0%, #0f172a 100%);
+            background: linear-gradient(180deg, #fbff08 0%, #000000 100%);
         }
         .sidebar .nav-link {
-            color: rgba(255,255,255,0.7);
+            color: rgba(0, 0, 0, 0.7);
             padding: 12px 20px;
             border-radius: 8px;
             margin: 4px 12px;
@@ -30,7 +30,7 @@
         .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
             background: rgba(255,255,255,0.1);
-            color: #fff;
+            color: #000000;
         }
         .sidebar .nav-link i {
             width: 24px;

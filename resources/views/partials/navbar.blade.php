@@ -3,12 +3,12 @@
      FUNGSI: Navigation bar untuk customer
      ================================================ --}}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-warning shadow-sm sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container">
         {{-- Logo & Brand --}}
         <a class="navbar-brand text-black" href="{{ route('home') }}">
             <i class="bi bi-bag-heart-fill me-2"></i>
-            Toko Sepatu Keren
+            ShoesStore
         </a>
 
         {{-- Mobile Toggle --}}

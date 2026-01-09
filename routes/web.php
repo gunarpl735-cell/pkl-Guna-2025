@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use App\Models\Order;
+use App\Events\OrderPaidEvent;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CatalogController;
@@ -172,3 +175,22 @@ Route::middleware('auth')->group(function () {
 Route::post('midtrans/notification', [MidtransNotificationController::class, 'handle'])
     ->name('midtrans.notification');
     // Batasi 5 request per menit
+
+
+Route::get('/tes-email', function () {
+    try {
+        // Ambil order terbaru beserta data user-nya
+        $order = Order::with('user')->latest()->first();
+
+        if (!$order || !$order->user) {
+            return "Gagal: Data Order atau User tidak ditemukan di database.";
+        }
+
+        // Picu Event
+        event(new OrderPaidEvent($order));
+
+        return "Event berhasil dipicu! Silakan cek Mailtrap Anda.";
+    } catch (\Throwable $e) {
+        return "Terjadi error: " . $e->getMessage();
+    }
+});
